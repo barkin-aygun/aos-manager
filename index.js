@@ -48,13 +48,10 @@ const line_indices = [leader_l, battleline_l, artillery_l, behemoth_l, other_l, 
 const index_keys = ["leader", "battleline", "artillery", "behemoth", "other", "terrain", "battalion", "total_points"]
 
 line_indices.forEach((l, i, arr) => {
-    if (l === -1) {
-        // Skip
-        return;
+    if (l !== -1) {
+        let next_index = arr.findIndex((lt, it) => it > i && lt !== -1)
+        army[index_keys[i]] = list_lines.slice(l + 1, arr[next_index] - 1).filter(x => x !== "")
     }
-
-    let next_index = arr.findIndex((lt, it) => it > i && lt !== -1)
-    army[index_keys[i]] = list_lines.slice(l + 1, arr[next_index] - 1).filter(x => x !== "")
 });
 
 
